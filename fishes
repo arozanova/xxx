@@ -1,0 +1,75 @@
+// you can use includes, for example:
+// #include <algorithm>
+#include <stack>
+
+// you can write to stdout for debugging purposes, e.g.
+// cout << "this is a debug message" << endl;
+
+//static int alive = 0;
+
+struct Fish {
+    int size;
+    int direction;
+    
+}
+
+void addFish(Fish fish, stack<Fish> &s)
+{
+    if (s.empty())
+    {
+//        if (fish%10 == 1)
+//        {
+            s.push(fish);
+//        }   
+//        else 
+//            alive++;
+        return;
+    }
+    else
+    {
+        // compare directions
+        if (s.top().==fish%(float)10)
+        {
+            s.push(fish);
+            return;
+        }
+        else if (s.top()%(float)10==0)
+        {
+            s.push(fish);
+            return;
+        }
+        else {
+            // compare sizes
+             cout << "s.top()/(long long int)10  " << s.top()/(float )10 << endl;
+             cout << "fish/(long long int)10  " << fish/(float)10 << endl;
+            if (s.top()/(float)10 > fish/(float)10)
+            {
+                // our fish is eaten. quit
+                cout << "eaten" << endl;
+                return;
+            }
+            else if (s.top()/(float)10 < fish/(float)10)
+            {
+                // stack fish eaten, repeat with next stack again
+                s.pop();
+                addFish(fish,s);
+            }
+        }
+    }
+}
+
+int solution(vector<int> &A, vector<int> &B) {
+    
+    if (A.size() == 1)
+        return 1;
+   
+    stack<Fish> s;
+    
+    for (size_t i = 0; i < A.size(); ++i)
+    {
+        Fish fish(A.at(i),B.at(i));
+        addFish(fish,s);
+    }
+ 
+    return s.size();// + alive;
+}
