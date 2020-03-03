@@ -1,0 +1,60 @@
+// you can use includes, for example:
+#include <stack>
+
+// you can write to stdout for debugging purposes, e.g.
+// cout << "this is a debug message" << endl;
+
+int getLeader(const vector<int> &A, auto begin, auto end){
+    stack<int> leader; 
+    
+  //  cout << "in getLeader " << endl;
+  int size = 0;
+    for (auto i = begin; i != end; ++i) {
+        if (leader.size() == 0){
+            leader.push(*i);
+        }
+        else if (*i == leader.top()) {
+            leader.push(*i);
+        }
+        else {
+            leader.pop();
+        }
+        size++;
+    }
+ //  cout << "size " << size<< endl;
+    int n =0;
+    for (auto i = begin; i != end; ++i) {
+        if (*i == leader.top()) {
+            ++n;
+        }
+    }
+    if (n < size/2+1)
+        return   -1;
+        
+    return  leader.top();
+}
+
+int solution(vector<int> &A) {
+    // write your code in C++14 (g++ 6.2.0)
+    int ret = 0;
+    if (A.size() == 1 )
+        return ret;
+    
+   int theLeader = getLeader(A, A.begin(), A.end());
+ //   cout << "the leader "<< theLeader << endl;
+    
+    
+    for (size_t i = 1; i < A.size(); ++i) {
+        int leader1 = getLeader(A, A.begin(), A.begin()+i);
+      //      cout << "the leader1 "<< leader1 << endl;
+        int leader2 = getLeader(A, A.begin()+i, A.end());
+        
+    //        cout << "the leader2 "<< leader2 << endl;
+        if ( leader1 == theLeader  && leader1 == leader2 ) {
+            ret++;
+        }
+    }
+    
+    
+    return ret;
+}
