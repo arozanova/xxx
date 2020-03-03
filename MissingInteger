@@ -1,0 +1,50 @@
+// you can use includes, for example:
+ #include <vector>
+
+// you can write to stdout for debugging purposes, e.g.
+// cout << "this is a debug message" << endl;
+
+int solution(vector<int> &A) {
+    int ret = 0;
+    
+    //int haveNegative = 0;
+    for (auto a : A) {
+        if (a < 0) {
+       //     haveNegative = 1;
+        }
+        if (a > 0) {
+            ret = -1;
+        }
+    }
+    if (ret == 0) {
+        return 1;
+    }
+    
+    ret = A.size()+1;
+    
+    // we have positive numbers
+    // have array with ones on indexes equal to positive values of A
+    std::vector<int> numbers(1000001, 0); 
+    
+    for (size_t i = 0; i < A.size(); ++i) {
+        if (A[i] <= 0) {
+            //skip
+        }
+        else {
+            numbers[A[i]] = 1;
+        }
+    }
+
+       
+    // go through the new array again
+    // if we meet value 0 - we return index
+    // special cases - one is missing
+    for (size_t n = 1; n < numbers.size(); ++n){
+        if (numbers[n] == 0){
+            ret = n;
+            break;
+        }
+    }
+    
+    return ret;
+}
