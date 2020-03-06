@@ -22,7 +22,7 @@ int getLeader(const vector<int> &A,  int& leaders){
  //  cout << "size " << size<< endl;
     size_t n =0;
      for (size_t i = 0; i != A.size(); ++i) {
-        if (A[i] == leader.top()) {
+        if (leader.size() >0 && A[i] == leader.top()) {
             ++n;
         }
     }
@@ -31,7 +31,7 @@ int getLeader(const vector<int> &A,  int& leaders){
     }
     leaders = n;
         
-    return  leader.top();
+    return  (leader.size() > 0) ? leader.top() : -1;
 }
 
 int solution(vector<int> &A) {
