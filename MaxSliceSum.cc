@@ -1,32 +1,17 @@
-int solution(vector<int> &A) {
-    int m = A[0];
-    bool pos = false;
-    
-    // check if we have only negative numbers
-    for (auto a : A ){
-        m = min(m,a);
-        if (a >= 0) {
-            pos = true;
-        }
-    }
-    
-    // if we have no positive nubmers we return the maximum number
-    if (!pos) {
-        int minmax = m;
-        for (auto a : A ){
-            if (a < 0)
-                minmax = max(minmax, a);
-        }  
-        return minmax;
-    }
+// you can use includes, for example:
+// #include <algorithm>
 
-    // as we have positive numbers, we proceed the usual way
-    int maxEnding = 0;
-    int maxSlice = maxEnding;
-    for (size_t i = 0; i < A.size(); ++i) {
-        maxEnding = max(0, maxEnding+A[i]);
-        maxSlice = max(maxSlice, maxEnding);
+// you can write to stdout for debugging purposes, e.g.
+// cout << "this is a debug message" << endl;
+
+int solution(vector<int> &A) {
+    // Implement your solution here
+    long int MIN = -2147483648;
+    long int maxSlice = MIN;
+    long int currentSlice = 0;
+    for (long int a : A){
+        currentSlice = max(a, currentSlice+a);
+        maxSlice = max(currentSlice, maxSlice);
     }
-    
     return maxSlice;
 }
